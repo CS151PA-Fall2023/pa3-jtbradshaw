@@ -1,3 +1,13 @@
+/**
+ * @file rational.cpp
+ * @author Justin Bradshaw
+ * @brief Functions file for main.cpp for CS151 PA3.
+ * @version 0.1
+ * @date 2023-10-10
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
 #include "rational.h"
 
 /**
@@ -66,7 +76,6 @@ Rational::Rational(const char *c){
     denominator = stoi(temp);
 }
 
-
 /**
  * @brief Overrides the << operator so that you can cout<<Rational in the class.
  * 
@@ -79,30 +88,71 @@ std::ostream& operator<<(std::ostream &out, Rational const& obj){
     return out;
 }
 
-
-Rational& operator+(Rational const& one, Rational const& two){
-    Rational temp;
-    temp.numerator = one.numerator + two.numerator;
-    temp.denominator = one.denominator + two.denominator;
+/**
+ * @brief Overloads addition operator so that addition can be preformed on Rational class
+ * 
+ * @param one first object of class
+ * @param two second object of class
+ * @return Rational 
+ */
+Rational operator+(const Rational& one, const Rational& two){
+    int newNumerator = (one.numerator * two.denominator) + (two.numerator* one.denominator);
+    int newDenominator = one.denominator * two.denominator;
+    Rational temp(newNumerator, newDenominator);
+    temp.reduce();
     return temp;
 }
 
+/**
+ * @brief Overloads subtraction operator so that subtraction can be preformed on Rational class
+ * 
+ * @param one first object of class
+ * @param two second object of class
+ * @return Rational 
+ */
+Rational operator-(const Rational& one, const Rational& two){
+    int newNumerator = (one.numerator * two.denominator) - (two.numerator* one.denominator);
+    int newDenominator = one.denominator * two.denominator;
+    Rational temp(newNumerator, newDenominator);
+    temp.reduce();
+    return temp;
+}
 
-// Rational& operator-(Rational const& one, Rational const& two){
+/**
+ * @brief Overloads division operator so that mdivision can be preformed on Rational class
+ * 
+ * @param one first object of class
+ * @param two second object of class
+ * @return Rational 
+ */
+Rational operator/(const Rational& one, const Rational& two){
+    int newNumerator = one.numerator * two.denominator;
+    int newDenominator = one.denominator * two.numerator;
+    Rational temp(newNumerator, newDenominator);
+    temp.reduce();
+    return temp;
+}
 
-// }
+/**
+ * @brief Overloads multiplication operator so that multiplication can be preformed on Rational class
+ * 
+ * @param one first object of class
+ * @param two second object of class
+ * @return Rational 
+ */
+Rational operator*(const Rational& one, const Rational& two){
+    int newNumerator = one.numerator * two.numerator;
+    int newDenominator = one.denominator * two.denominator;
+    Rational temp(newNumerator, newDenominator);
+    temp.reduce();
+    return temp;
+}
 
-
-// Rational& operator/(Rational const& one, Rational const& two){
-
-// }
-
-
-// Rational& operator*(Rational const& one, Rational const& two){
-
-// }
-
-
+/**
+ * @brief Overloads double so that Rational can be converted to double.
+ * 
+ * @return double 
+ */
 Rational::operator double(){
     return (double)numerator/(double)denominator;
 }
@@ -113,6 +163,12 @@ Rational::operator double(){
  */
 void Rational::reduce(){
     for (int i = numerator * denominator; i > 1; i--) {  
+            if ((denominator % i == 0) && (numerator % i == 0)) {  
+                denominator /= i;  
+                numerator /= i;  
+            }  
+        }
+    for (int i = numerator * denominator; i < 0; i++) {  
             if ((denominator % i == 0) && (numerator % i == 0)) {  
                 denominator /= i;  
                 numerator /= i;  

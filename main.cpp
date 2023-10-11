@@ -1,9 +1,10 @@
 /**
  * @file main.cpp
- * @author your name (you@domain.com)
- * @brief 
+ * @author Justin Bradshaw
+ * @brief Create a Rational class that holds fractions and then completes different arithmetic operations on those fractions.
+ * This is for CS151 PA3.
  * @version 0.1
- * @date 
+ * @date 10/10/2023
  * 
  */
 #include <iostream>
@@ -49,7 +50,7 @@ int main()
     
     Rational num7 = num1 + num2;
     cout << num1 << " + " << num2 << " = " << num7 << endl;
-/*    Rational num8 = num1 - num2;
+    Rational num8 = num1 - num2;
     cout << num1 << " - " << num2 << " = " << num8 << endl;
     Rational num9 = num1 * num2;
     cout << num1 << " * " << num2 << " = " << num9 << endl;
@@ -57,6 +58,6 @@ int main()
     cout << "(" << num1 << ") / (" << num2 << ") = " << num10 << endl;
     Rational num11 = num3 + num1 * num2;
     cout << num3 << " + " << num1 << "*" << num2 << " = " << num11 << "\n\n";
-*/
+
     return 0;
 }
